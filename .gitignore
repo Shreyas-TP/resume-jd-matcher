@@ -1,0 +1,25 @@
+```gitignore
+# Virtual Environment
+venv/
+.env
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Streamlit
+.streamlit/
+
+# Data files (optional – keep if sample only)
+data/resumes/*
+data/jds/*
+
+# IDEs
+.vscode/
+.idea/
