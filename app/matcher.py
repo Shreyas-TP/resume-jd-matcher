@@ -1,6 +1,8 @@
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 from sentence_transformers import SentenceTransformer
+from .experience import experience_match_score
+
 
 model = SentenceTransformer("all-MiniLM-L6-v2")
 
@@ -34,10 +36,11 @@ def final_match_score(
     skill_overlap = skill_overlap_score(resume_skills, jd_skills)
 
     # INTERN-FRIENDLY WEIGHTS
+    exp_score = experience_match_score(resume_text, jd_text)
     final_score = (
-        0.55 * skill_overlap +
-        0.30 * semantic +
-        0.15 * min(1.0, semantic + skill_overlap)
-    )
+    0.50 * skill_overlap +
+    0.30 * semantic +
+    0.20 * exp_score
+)
 
     return round(final_score * 100, 2)
