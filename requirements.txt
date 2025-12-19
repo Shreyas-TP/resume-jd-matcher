@@ -1,12 +1,12 @@
 fastapi
 uvicorn
-pdfplumber
 python-docx
-spacy
+pdfplumber
 scikit-learn
 sentence-transformers
+spacy
 pandas
 numpy
-rapidfuzz
+streamlit
 pytest
-
+python-multipart

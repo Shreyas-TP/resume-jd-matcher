@@ -5,6 +5,8 @@ import os
 from .parser import extract_text
 from .skills import extract_skills
 from .matcher import final_match_score
+from .emailer import send_screening_email
+
 
 app = FastAPI()
 
@@ -50,18 +52,28 @@ async def match(resume: UploadFile, jd: UploadFile):
     if score >= SCREENING_THRESHOLD:
         status = "SHORTLISTED"
         reason = "Score meets minimum screening criteria"
+
+        email_sent = send_screening_email(
+            to_email="candidate@example.com",
+            candidate_name="Candidate",
+            matched_skills=list(
+                set(resume_skills).intersection(set(jd_skills))
+            )
+        )
     else:
         status = "NOT_SHORTLISTED"
         reason = "Score below screening threshold"
+        email_sent = False
 
     return {
-        "match_score": score,
-        "threshold": SCREENING_THRESHOLD,
-        "status": status,
-        "reason": reason,
-        "resume_skills": resume_skills,
-        "jd_skills": jd_skills,
-        "matched_skills": list(
-            set(resume_skills).intersection(set(jd_skills))
+         "match_score": score,
+    "threshold": SCREENING_THRESHOLD,
+    "status": status,
+    "reason": reason,
+    "email_triggered": email_sent,
+    "resume_skills": resume_skills,
+    "jd_skills": jd_skills,
+    "matched_skills": list(
+        set(resume_skills).intersection(set(jd_skills))
         )
     }

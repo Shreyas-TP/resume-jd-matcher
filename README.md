@@ -131,7 +131,13 @@ Uploads a resume and JD, returns matching results.
 "matched_skills": ["Python", "FastAPI"]
 }
 
+<<<<<<< HEAD
 text
+=======
+
+
+🖥️ UI Demo
+>>>>>>> fe2c079 (Removed some unwanted files)
 
 ---
 
